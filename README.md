@@ -2,6 +2,10 @@
 
 Webex Room Device macro to switch input source to camera (QuadCam, Webex PTZ, etc.) pointed in the direction of the area of the room that has audio activity as detected by the table microphones in the zone.
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SarahCiscoFrance/CamSwitcher/main/pictures/Presentation.png" width="1000">
+</p>
+
 ## Requirements
 
 - Devices must be running RoomOS 10.8 or later
@@ -48,7 +52,24 @@ In the macro you will find 3 lists : `MIC_CONNECTORS`, `MAP_CAMERA_SOURCE_IDS` a
 | MAP_CAMERA_SOURCE_IDS | Camera source IDs that correspond to each microphone in MIC_CONNECTORS     |
 | MAP_PRESET_NUMBERS    | Camera Preset numbers that correspond to each microphone in MIC_CONNECTORS |
 
-**Example:**
+## Example:
+
+**Context:**
+
+Let's say we have 3 micro connected respectively to input 1, 2 and 3.
+
+In addition we have our QuadCam connected to video input 1 and the PTZ 4K camera connected to video input 2.
+
+Moreover let's say we created 2 presets on the PTZ 4K camera :
+
+- Preset n°1 called "my preset"
+- Preset n°2 called "my preset 2"
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SarahCiscoFrance/CamSwitcher/main/pictures/Preset.png" width="600">
+</p>
+
+**The content of the lists:**
 
 ```(js)
 const MIC_CONNECTORS =        [1,2,3];
@@ -80,4 +101,8 @@ _Micro at Input n°3 manage Camera 1 and apply the preset n°2._
 
 ---
 
-Also you can set the value of `const NEW_SPEAKER_TIME`which is the time (in milliseconds) to wait before switching to a new speaker.
+Now that you understand the logic you can set these lists.
+
+Also you can set the value of `const NEW_SPEAKER_TIME` which is the time (in milliseconds) to wait before switching to a new speaker.
+
+Note: the macro is of course only active during a call
