@@ -20,7 +20,7 @@ Webex Room Device macro to switch input source to camera (QuadCam, Webex PTZ, et
 
 ### 2. Create your preset
 
-Before installing the macro, do not forget to define one or more presets on the appropriate cameras.
+Before installing the macro, do not forget to define one or more presets on the appropriate cameras and to define a default preset for each camera.
 
 For this, you have on the navigator a camera icon at the top right of the screen, click on it.
 
@@ -30,7 +30,7 @@ For this, you have on the navigator a camera icon at the top right of the screen
 
 Then select a camera, make your settings (pan, tilt and zoom) and save your preset.
 
-**Add a camera position preset**
+**Step to follow to add a camera position preset**
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/SarahCiscoFrance/CamSwitcher/main/pictures/Navigator2.png" width="1000">
@@ -38,6 +38,12 @@ Then select a camera, make your settings (pan, tilt and zoom) and save your pres
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/SarahCiscoFrance/CamSwitcher/main/pictures/Navigator3.png" width="1000">
+</p>
+
+**Use a preset as default position**
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SarahCiscoFrance/CamSwitcher/main/pictures/Default-postion.png" width="1000">
 </p>
 
 ### 3. Edit & Install the Macro
