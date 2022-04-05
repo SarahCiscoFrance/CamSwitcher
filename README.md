@@ -150,7 +150,7 @@ Now that you understand the logic you can set these lists.
 | value   | purpose                                                                                                                                  |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | `true`  | **Use "side-by-side" mode as your default. The two source video ID defined in `OVERVIEW_DOUBLE_SOURCE_IDS` will be shown side by side.** |
-| `false` | **Don't use side-by-side mode. Instead it will use the source video ID you specified in `OVERVIEW_SINGLE_SOURCE_ID`.**                   |
+| `false` | **Doesn't use side-by-side mode. Instead it will use the source video ID you specified in `OVERVIEW_SINGLE_SOURCE_ID`.**                 |
 
 ## Video Switching Timing:
 
