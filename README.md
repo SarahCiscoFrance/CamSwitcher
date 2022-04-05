@@ -113,31 +113,31 @@ In the macro you will find 3 lists : `MIC_CONNECTORS`, `MAP_CAMERA_SOURCE_IDS` a
 
 ```(js)
 const MIC_CONNECTORS =        [1,2,3];
-const MAP_CAMERA_SOURCE_IDS = [2,1,1];
+const MAP_CAMERA_SOURCE_IDS = [1,2,2];
 const MAP_PRESET_NUMBERS =    [0,1,2];
 ```
 
 [`1`,2,3];<br>
-[`2`,1,1];<br>
+[`1`,2,2];<br>
 [`0`,1,2];
 
-_Micro at Input n°1 manage Camera 2 and does not apply a preset (because 0)._
+_Micro at Input n°1 manage Camera 1 and does not apply a preset (because 0)._
 
 ---
 
 [1,`2`,3];<br>
-[2,`1`,1];<br>
+[1,`2`,2];<br>
 [0,`1`,2];
 
-_Micro at Input n°2 manage Camera 1 and apply the preset n°1._
+_Micro at Input n°2 manage Camera 2 and apply the preset n°1._
 
 ---
 
 [1,2,`3`];<br>
-[2,1,`1`];<br>
+[1,2,`2`];<br>
 [0,1,`2`];
 
-_Micro at Input n°3 manage Camera 1 and apply the preset n°2._
+_Micro at Input n°3 manage Camera 2 and apply the preset n°2._
 
 ---
 
