@@ -14,8 +14,22 @@ Webex Room Device macro to switch input source to camera (QuadCam, Webex PTZ, et
 
 ### 1. Equipment setup
 
+#### Cisco Webex Codec Pro
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/SarahCiscoFrance/CamSwitcher/main/pictures/Setup.png" width="900">
+</p>
+
+#### Cisco Webex Quad Camera
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SarahCiscoFrance/CamSwitcher/main/pictures/Setup2.png" width="700">
+</p>
+
+#### Cisco Webex PTZ 4K Camera
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SarahCiscoFrance/CamSwitcher/main/pictures/Setup3.png" width="700">
 </p>
 
 ### 2. Create your preset
@@ -43,7 +57,7 @@ Then select a camera, make your settings (pan, tilt and zoom) and save your pres
 **Use a preset as default position**
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SarahCiscoFrance/CamSwitcher/main/pictures/Default-postion.png" width="1000">
+  <img src="https://raw.githubusercontent.com/SarahCiscoFrance/CamSwitcher/main/pictures/Default-postion.png" width="500">
 </p>
 
 ### 3. Edit & Install the Macro
@@ -74,6 +88,10 @@ Moreover let's say we created 2 presets on the PTZ 4K camera :
 <p align="center">
   <img src="https://raw.githubusercontent.com/SarahCiscoFrance/CamSwitcher/main/pictures/Preset.png" width="600">
 </p>
+
+Note: Remember that each camera must have a default preset. So here we can create 2 more presets which we use as default position.
+
+## Mics, Cameras and Preset Mapping
 
 **The content of the lists:**
 
@@ -109,6 +127,20 @@ _Micro at Input n°3 manage Camera 1 and apply the preset n°2._
 
 Now that you understand the logic you can set these lists.
 
-Also you can set the value of `const NEW_SPEAKER_TIME` which is the time (in milliseconds) to wait before switching to a new speaker.
+## Side-by-Side Mode:
+
+`overviewShowDouble` defines what is shown on the far end when in "overview" mode where nobody is speaking or there is no prominent speaker detected by any of the microphones.
+
+| values  | purpose                                                                                                                                  |
+| ------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `true`  | **Use "side-by-side" mode as your default. The two source video ID defined in `OVERVIEW_DOUBLE_SOURCE_IDS` will be shown side by side.** |
+| `false` | **Don't use side-by-side mode. Instead it will use the source video ID you specified in `OVERVIEW_SINGLE_SOURCE_ID`.**                   |
+
+## Video Switching Timing:
+
+| variable            | value        | purpose                                                                |
+| ------------------- | ------------ | ---------------------------------------------------------------------- |
+| `NEW_SPEAKER_TIME`  | milliseconds | Time to wait before switching to a new speaker.                        |
+| `SIDE_BY_SIDE_TIME` | milliseconds | Time to wait for silence before setting Speakertrack Side-by-Side mode |
 
 Note: the macro is of course only active during a call
