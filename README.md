@@ -66,16 +66,17 @@ In this macro there are several variables to define before you can use it correc
 
 These variables are :
 
-| Name                         | Description                                                                                                                                                              | Type            | Exemple   |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------- | --------- |
-| `MIC_CONNECTORS`             | Microphone Input Numbers to Monitor                                                                                                                                      | Array of Number | `[1,2,3]` |
-| `MAP_CAMERA_SOURCE_IDS`      | Camera source IDs that correspond to each microphone in `MIC_CONNECTORS`                                                                                                 | Array of Number | `[1,2,2]` |
-| `MAP_PRESET_NUMBERS`         | Camera Preset numbers that correspond to each microphone in `MIC_CONNECTORS`                                                                                             | Array of Number | `[0,1,2]` |
-| `overviewShowDouble`         | Option to enable Side-by-Side in overview mode when no one is speaking.                                                                                                  | Boolean         | `true`    |
-| `OVERVIEW_DOUBLE_SOURCE_IDS` | Specify the source video array of two IDs to use when in overview mode if you set `overviewShowDouble` to `true` (i.e. use in camera associated to video input 1 and 2). | Array of Number | `[1,2]`   |
-| `OVERVIEW_SINGLE_SOURCE_ID`  | Specify the source video ID to use when in overview mode if you set `overviewShowDouble` to `false` (i.e. use in camera associated to video input 1).                    | Number          | `1`       |
-| `NEW_SPEAKER_TIME`           | Time (in milliseconds) to wait before switching to a new speaker.                                                                                                        | Number          | `2000`    |
-| `SIDE_BY_SIDE_TIME`          | Time (in milliseconds) to wait for silence before setting Speakertrack Side-by-Side mode.                                                                                | Number          | `7000`    |
+| Name                           | Description                                                                                                                                                                                                                     | Type            | Exemple   |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- | --------- |
+| `MIC_CONNECTORS`               | Microphone Input Numbers to Monitor                                                                                                                                                                                             | Array of Number | `[1,2,3]` |
+| `MAP_CAMERA_SOURCE_IDS`        | Camera source IDs that correspond to each microphone in `MIC_CONNECTORS`                                                                                                                                                        | Array of Number | `[1,2,2]` |
+| `MAP_PRESET_NUMBERS`           | Camera Preset numbers that correspond to each microphone in `MIC_CONNECTORS`                                                                                                                                                    | Array of Number | `[0,1,2]` |
+| `overviewShowMultiple`         | Option to enable Side-by-Side in overview mode when no one is speaking.                                                                                                                                                         | Boolean         | `true`    |
+| `OVERVIEW_MULTIPLE_SOURCE_IDS` | Specify the source video array of IDs to use when in overview mode if you set `overviewShowMultiple` to `true` (i.e. use in camera associated to video input 1 and 2).                                                          | Array of Number | `[1,2]`   |
+| `OVERVIEW_SINGLE_SOURCE_ID`    | Specify the source video ID to use when in overview mode if you set `overviewShowMultiple` to `false` (i.e. use in camera associated to video input 1).                                                                         | Number          | `1`       |
+| `useDefaultPreset`             | Defines if default preset should be apply on each camera when nobody is speaking or there is no prominent speaker detected by any of the microphones mode (i.e. when the value is set to `false` default presets are not used). | Boolean         | `false`   |
+| `NEW_SPEAKER_TIME`             | Time (in milliseconds) to wait before switching to a new speaker.                                                                                                                                                               | Number          | `2000`    |
+| `SIDE_BY_SIDE_TIME`            | Time (in milliseconds) to wait for silence before setting Speakertrack Side-by-Side mode.                                                                                                                                       | Number          | `7000`    |
 
 Before editing the macro you need to understand the logic.
 
@@ -107,7 +108,7 @@ In the macro you will find 3 lists : `MIC_CONNECTORS`, `MAP_CAMERA_SOURCE_IDS` a
   <img src="https://raw.githubusercontent.com/SarahCiscoFrance/CamSwitcher/main/pictures/Preset.png" width="600">
 </p>
 
-> Note: Remember that each camera must have a default preset. So here we can create 2 more presets which we use as default position.
+> Note: Remember that each camera must have a default preset (unless you set `useDefaultPreset` to false). So here we can create 2 more presets which we use as default position.
 
 **Considering the context, the content of the lists must be as follows:**
 
@@ -121,7 +122,7 @@ const MAP_PRESET_NUMBERS =    [0,1,2];
 [`1`,2,2];<br>
 [`0`,1,2];
 
-_Micro at Input n°1 manage Camera 1 and does not apply a preset (because 0)._
+_Micro at Input n°1 manage Camera 1 and does not apply a preset (because it is set to 0) Speaker Track is used instead._
 
 ---
 
@@ -145,12 +146,12 @@ Now that you understand the logic you can set these lists.
 
 ## Side by Side Mode:
 
-`overviewShowDouble` defines what is shown on the far end when in "overview" mode where nobody is speaking or there is no prominent speaker detected by any of the microphones.
+`overviewShowMultiple` defines what is shown on the far end when in "overview" mode where nobody is speaking or there is no prominent speaker detected by any of the microphones.
 
-| value   | purpose                                                                                                                                  |
-| ------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `true`  | **Use "side-by-side" mode as your default. The two source video ID defined in `OVERVIEW_DOUBLE_SOURCE_IDS` will be shown side by side.** |
-| `false` | **Doesn't use side-by-side mode. Instead it will use the source video ID you specified in `OVERVIEW_SINGLE_SOURCE_ID`.**                 |
+| value   | purpose                                                                                                                                 |
+| ------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `true`  | **Use "side-by-side" mode as your default. The source video IDs defined in `OVERVIEW_MULTIPLE_SOURCE_IDS` will be shown side by side.** |
+| `false` | **Doesn't use side-by-side mode. Instead it will use the source video ID you specified in `OVERVIEW_SINGLE_SOURCE_ID`.**                |
 
 ## Video Switching Timing:
 

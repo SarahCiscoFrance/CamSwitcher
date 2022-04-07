@@ -26,19 +26,23 @@
  // mic 1 has no camera preset associated and mics 2,3 and 4 have respectively the camera preset n°29,30 and 31 associated
  const MAP_PRESET_NUMBERS = [0,1,2];
  
- // overviewShowDouble defines what is shown on the far end (the video the codec sends into the call or conference) when in "overview" mode where nobody is speaking or there is no
+ // overviewShowMultiple defines what is shown on the far end (the video the codec sends into the call or conference) when in "overview" mode where nobody is speaking or there is no
  // prominent speaker detected by any of the microphones
- // INSTRUCTIONS: If you are using side-by-side mode as your default - "overviewShowDouble = true" - then you must set up a default camera preset for each camera (Quad Camera and PTZ 4K)
+ // INSTRUCTIONS: If you are using side-by-side mode as your default - "overviewShowMultiple = true" - then you must set up a default camera preset for each camera (Quad Camera and PTZ 4K)
  // Through the Navigator interface you can use a preset as default position .
- const overviewShowDouble = true;
+ const overviewShowMultiple = true;
  
- // OVERVIEW_SINGLE_SOURCE_ID specifies the source video ID to use when in overview mode if you set overviewShowDouble to false
+ // OVERVIEW_SINGLE_SOURCE_ID specifies the source video ID to use when in overview mode if you set overviewShowMultiple to false
  const OVERVIEW_SINGLE_SOURCE_ID = 1;
  
- // OVERVIEW_DOUBLE_SOURCE_IDS specifies the source video array of two IDs to use when in overview mode if you set overviewShowDouble to true
- // it will display the two sources side by side on the main screen with the first value of the array on the
- // left and the second on the right.
- const OVERVIEW_DOUBLE_SOURCE_IDS = [1,2];
+ // OVERVIEW_MULTIPLE_SOURCE_IDS specifies the source video array of IDs to use when in overview mode if you set overviewShowMultiple to true
+ // it will display the sources side by side on the main screen with the first value of the array on the
+ // left and the second on the right, etc.
+ const OVERVIEW_MULTIPLE_SOURCE_IDS = [1,2];
+
+ // useDefaultPreset defines if default preset should be apply on each camera when nobody is speaking or there is no
+ // prominent speaker detected by any of the microphones
+ const useDefaultPreset = false
  
  // Microphone High/Low Thresholds
  const MICROPHONELOW  = 6;
@@ -191,23 +195,26 @@
  }
  
  function recallSideBySideMode() {
-   if (overviewShowDouble) {
+   if (overviewShowMultiple) {
          let connectorDict={ ConnectorId : [0,0]};
-         connectorDict["ConnectorId"]=OVERVIEW_DOUBLE_SOURCE_IDS;
+         connectorDict["ConnectorId"]=OVERVIEW_MULTIPLE_SOURCE_IDS;
          console.log("Trying to use this for connector dict in recallSideBySideMode(): ", connectorDict  )
          xapi.command('Video Input SetMainVideoSource', connectorDict).catch(handleError);
-         xapi.command('Cameras SpeakerTrack Deactivate').catch(handleError);
-         console.log("Trying to sets the cameras to their default position")
-         OVERVIEW_DOUBLE_SOURCE_IDS.forEach( camId => xapi.Command.Camera.Preset.ActivateDefaultPosition({ CameraId: camId }).catch(handleError) )
-         //xapi.command('Camera Preset Activate', { PresetId: 30 }).catch(handleError);
+         if(useDefaultPreset){
+            xapi.command('Cameras SpeakerTrack Deactivate').catch(handleError);
+            console.log("Trying to sets the cameras to their default position")
+            OVERVIEW_MULTIPLE_SOURCE_IDS.forEach( camId => xapi.Command.Camera.Preset.ActivateDefaultPosition({ CameraId: camId }).catch(handleError) )
+         }
      }
      else {
          let sourceDict={ SourceID : '0'};
          sourceDict["SourceID"]=OVERVIEW_SINGLE_SOURCE_ID.toString();
          console.log("Trying to use this for source dict in recallSideBySideMode(): ", sourceDict  )
          xapi.command('Video Input SetMainVideoSource', sourceDict).catch(handleError);
-         console.log("Trying to sets the camera to it's default position")
-         xapi.Command.Camera.Preset.ActivateDefaultPosition({ CameraId: OVERVIEW_SINGLE_SOURCE_ID }).catch(handleError)
+         if(useDefaultPreset){
+            console.log("Trying to sets the camera to it's default position")
+            xapi.Command.Camera.Preset.ActivateDefaultPosition({ CameraId: OVERVIEW_SINGLE_SOURCE_ID }).catch(handleError)
+         }
      }
    lastActiveHighInput = 0;
    lowWasRecalled = true;
